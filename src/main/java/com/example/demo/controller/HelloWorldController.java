@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.User;
-import com.example.demo.domain.UserComponent;
 
 
 /**
@@ -19,6 +19,18 @@ import com.example.demo.domain.UserComponent;
  */
 @RestController
 public class HelloWorldController {
+	
+	@Value("${com.user.id}")
+	private String id;
+	
+	@Value("${com.user.name}")
+	private String name;
+	
+	@Value("${com.user.age}")
+	private Integer age;
+	
+	@Value("${com.user.address}")
+	private String address;
 	
     @RequestMapping("/hello")
     public String index() {
@@ -35,9 +47,17 @@ public class HelloWorldController {
     	return user;
     }
     
+    /**
+     * 获取配置文件中的数值，赋值给用户
+     * @return
+     */
     @RequestMapping("/getUserComponent")
-    public UserComponent getUserComponent(){
-    	UserComponent usercom = new UserComponent();
+    public User getUserComponent(){
+    	User usercom = new User();
+    	usercom.setId(id);
+    	usercom.setName(name);
+    	usercom.setAge(age);
+    	usercom.setAddress(address);
     	return usercom;
     }
 
